@@ -10,7 +10,7 @@ class Button():
         self.type = type
         if self.type == 'web_url':
             self.url = payload
-        elif: self.type == 'postback':
+        elif self.type == 'postback':
             self.payload = payload
         else:
             raise
