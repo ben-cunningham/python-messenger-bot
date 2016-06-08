@@ -26,3 +26,25 @@ class TestHttpClient(unittest.TestCase):
 
         client = HttpClient()
         client.submit_request('/users/123', 'GET', None, completion)
+
+    @httpretty.activate
+    def test_submite_POST_request(self):
+
+        httpretty.register_uri(httpretty.POST,
+            FACEBOOK_MESSAGES_POST_URL + 'users/',
+            body='{ \
+                "name": "ben", \
+                "age": 12 \
+            }', status=201)
+
+        def completion(payload, error):
+            
+            if error is None:
+                assert payload['name'] == 'ben'
+                assert payload['age'] == 12
+            else:
+                raise
+
+        client = HttpClient()
+        client.submit_request('users/', 'POST', None, completion)
+
