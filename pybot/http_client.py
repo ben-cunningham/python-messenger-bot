@@ -20,14 +20,21 @@ class HttpClient():
             response = requests.get(path, headers=headers)
 
             if response.status_code is not 200:
-                error = self.get_error_from_request(response)
+                error = self.get_error_from_response(response)
                 completion(None, error)
             else:
                 json_ = self.get_json(response.text)
                 completion(json_, None)
 
         elif method == 'POST':
-            re
+            response = requests.post(path, data=payload, headers=headers)
+
+            if response.status_code is not 201:
+                error = self.get_error_from_response(response)
+                completion(None, error)
+            else:
+                json_ = self.get_json(response.text)
+                completion(json_, None)
 
     def get_error_from_response(self, response):
 
