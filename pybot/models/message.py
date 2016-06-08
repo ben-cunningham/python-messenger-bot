@@ -19,13 +19,13 @@ class TextMessage(Message):
         self.message = message
         self.recipient_id = recipient
 
-    def to_json():
+    def to_json(self):
         message = {
             'message': self.message,
             'recipient': self.recipient_id
         }
 
-        return json.loads(message) 
+        return json.dumps(message) 
     
 
 class StructuredMessage(Message):
