@@ -1,13 +1,13 @@
 from http_client import HttpClient
 
-"""
-@breif Facebook messenger bot
-"""
 class Bot():
+    """
+    @breif Facebook messenger bot
+    """
 
     def __init__(self, token):
         self.api_token = token
-        self.client = HttpClient()   
+        self.client = HttpClient()
 
     def send_message(self, message, completion):
 
@@ -23,6 +23,3 @@ class Bot():
             'POST', 
             message.to_json(), 
             completion)
-
-    def handle_incoming():
-        raise NotImplementedError
