@@ -9,7 +9,7 @@ class Bot():
         self.api_token = token
         self.client = HttpClient()   
 
-    def send_message(self, message):
+    def send_message(self, message, completion):
 
         def completion(response, error):
             if error is None:
@@ -17,7 +17,7 @@ class Bot():
                 # maybe retry if it fails...?
                 pass
             else:
-                pass
+                completion()
 
         self.client.submit_request('/me/messages', 
             'POST', 
