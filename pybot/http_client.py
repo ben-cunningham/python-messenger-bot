@@ -17,22 +17,29 @@ class HttpClient():
         headers = self.get_headers()
 
         if method == 'GET':
-            request = requests.get(path, headers=headers)
+            response = requests.get(path, headers=headers)
 
-            if request.status_code is not 200:
-                error = self.get_error_from_request(request)
+            if response.status_code is not 200:
+                error = self.get_error_from_response(response)
                 completion(None, error)
             else:
-                json_ = self.get_json(request.text)
+                json_ = self.get_json(response.text)
                 completion(json_, None)
 
         elif method == 'POST':
-            raise NotImplementedError
+            response = requests.post(path, data=payload, headers=headers)
 
-    def get_error_from_request(self, request):
+            if response.status_code is not 201:
+                error = self.get_error_from_response(response)
+                completion(None, error)
+            else:
+                json_ = self.get_json(response.text)
+                completion(json_, None)
+
+    def get_error_from_response(self, response):
 
         return {
-            'error': self.get_json(request.text)
+            'error': self.get_json(response.text)
         }
 
     def get_json(self, string):
