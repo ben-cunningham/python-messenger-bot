@@ -36,6 +36,7 @@ class HttpClient():
                 json_ = self.get_json(response.text)
                 completion(json_, None)
 
+
     def get_error_from_response(self, response):
 
         return {
