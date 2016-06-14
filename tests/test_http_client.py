@@ -2,8 +2,8 @@ import unittest
 
 import httpretty
 
-from pybot.http_client import HttpClient
-from pybot.resources.urls import FACEBOOK_MESSAGES_POST_URL
+from fbmsgbot.http_client import HttpClient
+from fbmsgbot.resources.urls import FACEBOOK_MESSAGES_POST_URL
 
 
 class TestHttpClient(unittest.TestCase):

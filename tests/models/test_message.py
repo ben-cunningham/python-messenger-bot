@@ -1,6 +1,6 @@
 import unittest, json
 
-from pybot.models.message import TextMessage
+from fbmsgbot.models.message import TextMessage
 
 class TestMessage(unittest.TestCase):
     """

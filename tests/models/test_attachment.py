@@ -1,6 +1,6 @@
 import unittest, json
 
-from pybot.models.attachment import Element, Button, WebUrlButton, PayloadButton
+from fbmsgbot.models.attachment import Element, Button, WebUrlButton, PayloadButton
 
 """
 Test Button
