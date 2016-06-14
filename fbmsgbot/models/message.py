@@ -40,4 +40,4 @@ class StructuredMessage(Message):
         self.buttons = []
 
     def to_json(self):
-        return json.loads({})
+        return json.dumps({})
