@@ -13,7 +13,8 @@ class Bot():
 
         def _completion(response, error):
             if error is not None:
-                pass
+                print 'Error Encountered! Could not send message\n'
+                print 'Message: %s' % error
             else:
                 completion(response)
 
