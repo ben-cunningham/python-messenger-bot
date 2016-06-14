@@ -3,7 +3,7 @@ from distutils.core import setup
 setup(
     name = 'fbmsgbot',
     packages = ['fbmsgbot'],
-    version = '0.1',
+    version = '0.1.5',
     description = 'Python bot for Facebook Messenger',
     author = 'Benjamin Cunningham & Austin Hendy',
     author_email = 'bencunningham17@gmail.com',
