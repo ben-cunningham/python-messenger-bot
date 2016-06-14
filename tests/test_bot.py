@@ -23,7 +23,7 @@ class TestBot(unittest.TestCase):
 		httpretty.register_uri(httpretty.POST,
             FACEBOOK_MESSAGES_POST_URL + '/me/messages',
             body='{ \
-                "recipient_id": "1008", \
+                "recipient_id": 1008, \
   				"message_id": "mid.1" \
             }', status=201)
 
