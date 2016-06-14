@@ -7,7 +7,7 @@ class Bot():
 
     def __init__(self, token):
         self.api_token = token
-        self.client = HttpClient()
+        self.client = HttpClient(token)
 
     def send_message(self, message, completion):
 
@@ -28,7 +28,6 @@ class Bot():
             _completion)
 
     def set_welcome(self, message, completion):
-        url = "/me/thread_settings?access_token=%s" % (self.access_token)
         
         def _completion(response, error):
             print error
@@ -41,8 +40,8 @@ class Bot():
                 completion(response)
 
         self.client.submit_request(
-            url,
-            'POST'
+            '/me/thread_settings',
+            'POST',
             message.to_json(),
             _completion)
         
