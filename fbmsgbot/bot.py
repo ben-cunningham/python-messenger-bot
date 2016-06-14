@@ -11,15 +11,17 @@ class Bot():
 
     def send_message(self, message, completion):
 
-        def completion(response, error):
+        def _completion(response, error):
+            print error
             if error is None:
                 # TODO: Is there anything the bot needs to do?
                 # maybe retry if it fails...?
                 pass
             else:
-                completion()
+                print response
+                completion(response)
 
         self.client.submit_request('/me/messages', 
             'POST', 
             message.to_json(), 
-            completion)
+            _completion)
