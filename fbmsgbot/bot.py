@@ -2,7 +2,7 @@ from http_client import HttpClient
 
 class Bot():
     """
-    @breif Facebook messenger bot
+    @brief Facebook messenger bot
     """
 
     def __init__(self, token):
@@ -19,7 +19,19 @@ class Bot():
             else:
                 completion()
 
-        self.client.submit_request('/me/messages', 
+        self.client.submit_request(
+            '/me/messages', 
             'POST', 
             message.to_json(), 
             completion)
+
+    def set_welcome(self, message):
+        url = "/me/thread_settings?access_token=%s" % (self.access_token)
+        
+        self.client.submit_request(
+            url,
+            'POST'
+            message.to_json(),
+            completion)
+
+        raise NotImplementedError
