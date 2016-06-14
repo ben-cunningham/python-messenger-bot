@@ -12,13 +12,9 @@ class Bot():
     def send_message(self, message, completion):
 
         def _completion(response, error):
-            print error
-            if error is None:
-                # TODO: Is there anything the bot needs to do?
-                # maybe retry if it fails...?
+            if error is not None:
                 pass
             else:
-                print response
                 completion(response)
 
         self.client.submit_request(
@@ -30,13 +26,9 @@ class Bot():
     def set_welcome(self, message, completion):
         
         def _completion(response, error):
-            print error
-            if error is None:
-                # TODO: Is there anything the bot needs to do?
-                # maybe retry if it fails...?
+            if error is not None:
                 pass
             else:
-                print response
                 completion(response)
 
         self.client.submit_request(
