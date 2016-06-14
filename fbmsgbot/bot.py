@@ -33,5 +33,4 @@ class Bot():
             'POST'
             message.to_json(),
             completion)
-
-        raise NotImplementedError
+        
