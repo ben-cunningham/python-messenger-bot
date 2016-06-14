@@ -1,13 +1,13 @@
-from distutils.core import setup
+from setuptools import setup, find_packages
 
 setup(
     name = 'fbmsgbot',
-    packages = ['fbmsgbot'],
-    version = '0.1.6',
+    packages = find_packages(exclude=['tests*']),
+    version = '0.1.7',
     description = 'Python bot for Facebook Messenger',
     author = 'Benjamin Cunningham & Austin Hendy',
     author_email = 'bencunningham17@gmail.com',
     url = 'https://github.com/ben-cunningham/pybot',
-    download_url = 'https://github.com/ben-cunningham/pybot/tarball/0.1.6',
+    download_url = 'https://github.com/ben-cunningham/pybot/tarball/0.1.7',
     classifiers = [],
 )
