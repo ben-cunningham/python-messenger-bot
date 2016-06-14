@@ -2,7 +2,7 @@ from http_client import HttpClient
 
 class Bot():
     """
-    @breif Facebook messenger bot
+    @brief Facebook messenger bot
     """
 
     def __init__(self, token):
@@ -21,7 +21,8 @@ class Bot():
                 print response
                 completion(response)
 
-        self.client.submit_request('/me/messages', 
+        self.client.submit_request(
+            '/me/messages', 
             'POST', 
             message.to_json(), 
             _completion)
@@ -38,7 +39,7 @@ class Bot():
             else:
                 print response
                 completion(response)
-        
+
         self.client.submit_request(
             url,
             'POST'
