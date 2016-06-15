@@ -23,7 +23,7 @@ class TestBot(unittest.TestCase):
 		httpretty.register_uri(httpretty.POST,
             FACEBOOK_MESSAGES_POST_URL + '/me/messages',
             body='{ \
-                "recipient_id": "1008", \
+                "recipient_id": 1008, \
   				"message_id": "mid.1" \
             }', status=201)
 
@@ -55,13 +55,21 @@ class TestBot(unittest.TestCase):
 		for i in range(3):
 			buttons.append(WebUrlButton(str(i), "http://ex.com"))
 		
-		message = StructuredMessage("example")
+		message = StructuredMessage(StructuredMessage.button_type)
+		message.title = 'test title'
+		message.buttons = buttons
 		
 		def completion(response):
 			pass
 
 		bot.send_message(message, completion)
 
+	@httpretty.activate
 	def test_send_generic_structured_message(self):
-		pass
+		httpretty.register_uri(httpretty.POST,
+            FACEBOOK_MESSAGES_POST_URL + '/me/messages',
+            body='{ \
+                "recipient_id": "1008", \
+  				"message_id": "mid.1" \
+            }')
 

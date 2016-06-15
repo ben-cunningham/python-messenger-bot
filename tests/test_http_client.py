@@ -24,7 +24,7 @@ class TestHttpClient(unittest.TestCase):
             assert payload['data'] == [1, 2, 3]
             assert payload['data'] != [3, 2, 1]
 
-        client = HttpClient()
+        client = HttpClient('123123')
         client.submit_request('/users/123', 'GET', None, completion)
 
     @httpretty.activate
@@ -45,6 +45,6 @@ class TestHttpClient(unittest.TestCase):
             else:
                 raise
 
-        client = HttpClient()
+        client = HttpClient('123123')
         client.submit_request('users/', 'POST', None, completion)
 

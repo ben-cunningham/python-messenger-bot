@@ -9,6 +9,9 @@ class HttpClient():
     facebook's messenger api
     """
 
+    def __init__(self, api_token):
+        self.api_token = api_token
+
     def submit_request(self, path, method, payload, completion):
 
         assert len(path) > 0
@@ -48,8 +51,10 @@ class HttpClient():
         return json.loads(string)
 
     def get_api_url(self, path):
-            
-        return FACEBOOK_MESSAGES_POST_URL + path
+        url = FACEBOOK_MESSAGES_POST_URL + path
+        url = url + '?access_token=%s' % self.api_token
+
+        return url
 
     def get_headers(self):
             
