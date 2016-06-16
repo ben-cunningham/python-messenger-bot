@@ -60,3 +60,22 @@ class StructuredMessage(Message):
             pass
 
         return json.dumps(message)
+
+class ReceivedMessage(Message):
+    """
+    Model to represent reciepts
+    """
+
+    def __init__(self, json):
+
+        if 'text' in json['message']:
+            self.type = 'text'
+            self.text = json['message']['text']
+
+        self.recipient = json['recipient']['id']
+        self.sender = json['sender']['id']
+        self.time = json['timestamp']
+
+    def to_json(self):
+        raise NotImplementedError
+
