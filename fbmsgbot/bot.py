@@ -1,4 +1,6 @@
 from http_client import HttpClient
+ 
+from models.message import ReceivedMessage
 
 class Bot():
     """
@@ -37,4 +39,24 @@ class Bot():
             'POST',
             message.to_json(),
             _completion)
-        
+
+    def messages_for_request(self, request):
+        """
+        Handle incoming requests from the webhook
+        """
+
+        entries = request.json['entry']
+        messages = []
+        for entry in entries:
+            message = {}
+            for msg in entry['messaging']:
+                messages.append(ReceivedMessage(msg))
+
+        return messages
+
+    def message_from_reciept(receipt):
+        """
+        Handle receipts
+        """
+
+        raise NotImplementedError
