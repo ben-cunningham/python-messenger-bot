@@ -30,13 +30,12 @@ class TestBot(unittest.TestCase):
         bot = Bot("abc")
         message = TextMessage(
                     "hello world!", 
-                    "user_id")
+                    "user_id")            
 
-        def completion(response):
-            assert response['recipient_id'] == 1008
-            assert response['message_id'] == "mid.1"
-
-        bot.send_message(message, completion)
+        response, error = bot.send_message(message)
+        assert response['recipient_id'] == 1008
+        assert response['message_id'] == "mid.1"
+        assert error is None
 
     def test_send_image_message(self):
         pass
@@ -48,7 +47,7 @@ class TestBot(unittest.TestCase):
             body='{ \
                 "recipient_id": "1008", \
                 "message_id": "mid.1" \
-            }')
+            }',status=201)
 
         bot = Bot("abc")
         buttons = []
@@ -62,7 +61,7 @@ class TestBot(unittest.TestCase):
         def completion(response):
             pass
 
-        bot.send_message(message, completion)
+        bot.send_message(message)
 
     @httpretty.activate
     def test_send_generic_structured_message(self):
