@@ -18,14 +18,14 @@ class TestHttpClient(unittest.TestCase):
             FACEBOOK_MESSAGES_POST_URL + '/users/123',
             body='{ \
                 "data" : [1,2,3] \
-            }')
-
-        def completion(payload, error):
-            assert payload['data'] == [1, 2, 3]
-            assert payload['data'] != [3, 2, 1]
+            }', status=200)
 
         client = HttpClient('123123')
-        client.submit_request('/users/123', 'GET', None, completion)
+        response, error = client.submit_request('/users/123', 
+                                                'GET', None)
+
+        assert response['data'] == [1, 2, 3]
+        assert response['data'] != [3, 2, 1]
 
     @httpretty.activate
     def test_submite_POST_request(self):
@@ -37,14 +37,13 @@ class TestHttpClient(unittest.TestCase):
                 "age": 12 \
             }', status=201)
 
-        def completion(payload, error):
-            
-            if error is None:
-                assert payload['name'] == 'ben'
-                assert payload['age'] == 12
-            else:
-                raise
-
         client = HttpClient('123123')
-        client.submit_request('users/', 'POST', None, completion)
+        response, error = client.submit_request('users/', 
+                                                'POST', None)
+        
+        if error is None:
+            assert response['name'] == 'ben'
+            assert response['age'] == 12
+        else:
+            raise
 
