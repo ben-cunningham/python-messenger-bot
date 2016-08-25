@@ -16,8 +16,7 @@ class Bot():
         response, error = self.client.submit_request(
                             '/me/messages', 
                             'POST', 
-                            message.to_json(), 
-                            None)
+                            message.to_json())
 
         if error is not None:
             print 'Error Encountered! Could not send message\n'
@@ -36,8 +35,7 @@ class Bot():
         self.client.submit_request(
             '/me/thread_settings',
             'POST',
-            message.to_json(),
-            _completion)
+            message.to_json())
 
     def messages_for_request(self, request):
         """
