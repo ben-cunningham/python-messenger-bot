@@ -11,20 +11,19 @@ class Bot():
         self.api_token = token
         self.client = HttpClient(token)
 
-    def send_message(self, message, completion):
+    def send_message(self, message):
 
-        def _completion(response, error):
-            if error is not None:
-                print 'Error Encountered! Could not send message\n'
-                print 'Message: %s' % error
-            else:
-                completion(response)
+        response, error = self.client.submit_request(
+                            '/me/messages', 
+                            'POST', 
+                            message.to_json(), 
+                            None)
 
-        self.client.submit_request(
-            '/me/messages', 
-            'POST', 
-            message.to_json(), 
-            _completion)
+        if error is not None:
+            print 'Error Encountered! Could not send message\n'
+            print 'Message: %s' % error
+        
+        return response, error
 
     def set_welcome(self, message, completion):
         
