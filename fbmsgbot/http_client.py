@@ -12,34 +12,27 @@ class HttpClient():
     def __init__(self, api_token):
         self.api_token = api_token
 
-    def submit_request(self, path, method, payload, completion):
+    def submit_request(self, path, method, payload):
 
         assert len(path) > 0
         
         path = self.get_api_url(path)
         headers = self.get_headers()
+        response = error = r = None
 
         if method == 'GET':
-            response = requests.get(path, headers=headers)
-
-            if response.status_code is not 200:
-                error = self.get_error_from_response(response)
-                completion(None, error)
-            else:
-                json_ = self.get_json(response.text)
-                completion(json_, None)
+            r = requests.get(path, headers=headers)
 
         elif method == 'POST':
             r = requests.post(path, data=payload, headers=headers)
-            response, error = None, None
 
-            if r.status_code is not 201:
-                r_error = self.get_error_from_response(r)
-                response, error = r_error['message'], r_error['type']
-            else:
-                response = self.get_json(r.text)
-
-            return response, error
+        if r.status_code < 300:
+            response = self.get_json(r.text)
+        else:
+            r_error = self.get_error_from_response(r)
+            response, error = r_error['message'], r_error['type']
+        
+        return response, error
 
     def get_error_from_response(self, response):
 
