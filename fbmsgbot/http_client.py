@@ -18,7 +18,7 @@ class HttpClient():
         
         path = self.get_api_url(path)
         headers = self.get_headers()
-        response, error, r = None, None, None
+        response = error = r = None
 
         if method == 'GET':
             r = requests.get(path, headers=headers)
