@@ -1,10 +1,8 @@
-import abc, json
+import json
 
 class Message():
-    __metaclass__  = abc.ABCMeta
  
-    @abc.abstractmethod
-    def to_json(self):
+    def to_json(self, text=None, attachment=None):
          """Returns json representation of message"""
 
 
