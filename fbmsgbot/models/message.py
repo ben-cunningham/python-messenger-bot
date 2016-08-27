@@ -17,7 +17,7 @@ class Message():
         data = {}
 
         if self.type == 'text':
-            data['text'] = self.kwargs 
+            data['text'] = self.kwargs['text']
         else:
             data['attachment'] = {}
             data['attachment']['type'] = self.type
