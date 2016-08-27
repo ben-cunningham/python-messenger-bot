@@ -36,9 +36,7 @@ class HttpClient():
 
     def get_error_from_response(self, response):
 
-        return {
-            'error': self.get_json(response.text)['error']
-        }
+        return self.get_json(response.text)['error']
 
     def get_json(self, string):
 
@@ -52,4 +50,6 @@ class HttpClient():
 
     def get_headers(self):
             
-        return {}
+        return {
+            'content-type':  'application/json'
+        }
