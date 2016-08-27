@@ -40,7 +40,14 @@ class Message():
                     'url': self.payload
                 }
 
-        return json.dumps(data)
+        message = {
+            'recipient': {
+                'id': self.recipient,
+            },
+            'message': data
+        }
+
+        return json.dumps(message)
     
 
 class ReceivedMessage(Message):
