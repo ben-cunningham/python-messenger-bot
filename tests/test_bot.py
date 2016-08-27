@@ -3,7 +3,7 @@ import unittest
 import httpretty
 
 from fbmsgbot.bot import Bot
-from fbmsgbot.models.message import TextMessage
+from fbmsgbot.models.message import Message
 from fbmsgbot.models.message import StructuredMessage
 from fbmsgbot.models.attachment import WebUrlButton
 from fbmsgbot.models.attachment import Element
@@ -28,9 +28,7 @@ class TestBot(unittest.TestCase):
             }', status=201)
 
         bot = Bot("abc")
-        message = TextMessage(
-                    "hello world!", 
-                    "user_id")            
+        message = Message('123abc', 'image', 'google.com')          
 
         response, error = bot.send_message(message)
         assert response['recipient_id'] == 1008
