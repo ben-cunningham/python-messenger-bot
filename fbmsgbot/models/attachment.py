@@ -61,4 +61,3 @@ class Element():
         }
 
         return json.dumps(payload)
-

@@ -4,9 +4,9 @@ import httpretty
 
 from fbmsgbot.bot import Bot
 from fbmsgbot.models.message import Message
-from fbmsgbot.models.message import StructuredMessage
 from fbmsgbot.models.attachment import WebUrlButton
 from fbmsgbot.models.attachment import Element
+from fbmsgbot.models.template import Template
 from fbmsgbot.resources.urls import FACEBOOK_MESSAGES_POST_URL
 
 class TestBot(unittest.TestCase):
@@ -39,25 +39,22 @@ class TestBot(unittest.TestCase):
         pass
 
     @httpretty.activate
-    def test_send_button_structured_message(self):
+    def test_send_button_template_message(self):
         httpretty.register_uri(httpretty.POST,
             FACEBOOK_MESSAGES_POST_URL + '/me/messages',
             body='{ \
                 "recipient_id": "1008", \
                 "message_id": "mid.1" \
-            }',status=201)
+            }', status=201)
 
         bot = Bot("abc")
         buttons = []
         for i in range(3):
             buttons.append(WebUrlButton(str(i), "http://ex.com"))
         
-        message = StructuredMessage(StructuredMessage.button_type)
-        message.title = 'test title'
-        message.buttons = buttons
-        
-        def completion(response):
-            pass
+        message = Template(Template.button_type,
+                        title='Title',
+                        buttons=buttons,)
 
         bot.send_message(message)
 

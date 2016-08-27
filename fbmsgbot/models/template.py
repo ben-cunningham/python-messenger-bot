@@ -1,6 +1,7 @@
 from attachment import Button
+import json 
 
-class Template():
+class Template(object):
     """
     Facebook Messenger message
     model for structured messages
@@ -23,24 +24,28 @@ class Template():
             }
 
         if self.type == self.button_type:
-            assert all(type(button)==Button 
-            	for button in self.kwargs['buttons']), "Missing type button"
+            assert all([isinstance(button, Button)
+            	for button in self.kwargs['buttons']]), "Missing type button"
             
+            buttons = [json.loads(b.to_json()) for b in self.kwargs['buttons']]
             message['message']['attachment']['payload'] = {
                 'template_type' : 'button',
-                'text' : self.title,
-                'buttons' : [b.to_json() for b in kwargs['buttons']]
+                'text' : self.kwargs['title'],
+                'buttons' : buttons
             }
         
         elif self.type == self.generic_type:
         	# elements = kwargs.get('elements')
         	# TODO: Check types and check if elements exist in kwargs
+            elements = [json.loads(element.to_json()) for element in self.kwargs['elements']]
             message['message']['attachment']['payload'] = {
                 'template_type' : 'generic',
-                'elements': kwargs['elements'].to_json()
+                'elements': elements
             }
         
         elif self.type == self.receipt_type:
-        	raise NotImplementedError
+            raise NotImplementedError
+
+
 
         return json.dumps(message)

@@ -1,9 +1,10 @@
 import unittest, json
 
 from fbmsgbot.models.message import Message
-from fbmsgbot.models.message import StructuredMessage
-
+from fbmsgbot.models.template import Template
 from fbmsgbot.models.attachment import WebUrlButton
+from fbmsgbot.models.attachment import Element
+
 
 class TestMessage(unittest.TestCase):
     """
@@ -24,15 +25,19 @@ class TestMessage(unittest.TestCase):
         assert json_['attachment']['payload']['url'] == 'google.com'
 
 
-class TestStructuredMessage(unittest.TestCase):
+class TestTemplate(unittest.TestCase):
     """
     Test the structuredMessage model
     """
 
-    def test_button_structured_button(self):
-        message = StructuredMessage(StructuredMessage.button_type)
-        message.title = 'title'
-        message.buttons = [WebUrlButton('title', 'url') for i in range(3)]
+    def test_button_template_button(self):
+        buttons = [WebUrlButton('title', 'url') for _ in range(3)]
+        message = Template(
+                        Template.button_type,
+                        buttons=buttons,
+                        title='title',
+                  )
+
         json_ = message.to_json()
         json_ = json.loads(json_)
         assert json_['message']['attachment']['type'] == 'template'
@@ -40,6 +45,29 @@ class TestStructuredMessage(unittest.TestCase):
         payload = json_['message']['attachment']['payload']
         assert payload['template_type'] == 'button'
         assert payload['text'] == 'title'
+        assert payload['buttons'][0]['title'] =='title'
+
         assert len(payload['buttons']) == 3
 
+    def test_generic_template(self):
+        title = 't'
+        img_url = 'www.e.com'
+        subtitle = 's'
+        buttons = [WebUrlButton('title', 'url') for i in range(3)]
+        largs = [title, img_url, subtitle, buttons]
+        elements = [Element(title,
+                            img_url,
+                            subtitle,
+                            buttons)]
 
+
+        message = Template(Template.generic_type,
+                        elements=elements,)
+
+        json_ = message.to_json()
+        json_ = json.loads(json_)
+
+        assert json_['message']['attachment']['type'] == 'template'
+        payload = json_['message']['attachment']['payload']
+        assert payload['template_type'] == 'generic'
+        assert payload['elements'][0]['title'] =='t'
