@@ -25,12 +25,6 @@ class Bot():
         return response, error
 
     def set_welcome(self, message, completion):
-        
-        def _completion(response, error):
-            if error is not None:
-                pass
-            else:
-                completion(response)
 
         self.client.submit_request(
             '/me/thread_settings',
