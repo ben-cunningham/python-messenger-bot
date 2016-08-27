@@ -1,31 +1,46 @@
 import json
 
+supported_types = [
+    'text',
+    'image',
+    'video',
+    'audio',
+    'file',
+    'template' 
+]
+
 class Message():
     """
     Base message object
     """
 
-    def __init__(self, recipient, type, **kwargs):
+    def __init__(self, recipient, type, payload):
+
+        assert type in supported_types, 'That is not a supported type'
 
         self.recipient = recipient
         self.type = type
-        self.kwargs = kwargs
+        self.payload = payload
 
-    def to_json(self, text=None, attachment=None):
-         """Returns json representation of message"""
-
+    def to_json(self):
+        """Returns json representation of message"""
         data = {}
+        # TODO: check types on the payload
 
         if self.type == 'text':
-            data['text'] = self.kwargs['text']
+            data['text'] = self.payload
         else:
             data['attachment'] = {}
             data['attachment']['type'] = self.type
-            elif self.type == 'template':
-                template = self.kwargs['template']
+            if self.type == 'template':
+                template = self.payload
                 data['attachment']['payload'] = template.to_json()
             else:
-                data['attachment']['payload']['url'] = self.kwargs['url']
+                data['attachment']['payload'] = {
+                    'url': self.payload
+                }
+
+        return json.dumps(data)
     
 class StructuredMessage(Message):
     """
