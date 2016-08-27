@@ -26,26 +26,7 @@ class Message():
                 data['attachment']['payload'] = template.to_json()
             else:
                 data['attachment']['payload']['url'] = self.kwargs['url']
-
-class TextMessage(Message):
-    """
-    Facebook Messenger message
-    model for simple text responses
-    """
-
-    def __init__(self, message, recipient):
-        self.message = message
-        self.recipient_id = recipient
-
-    def to_json(self):
-        message = {
-            'message': self.message,
-            'recipient': self.recipient_id
-        }
-
-        return json.dumps(message) 
     
-
 class StructuredMessage(Message):
     """
     Facebook Messenger message
