@@ -42,39 +42,6 @@ class Message():
 
         return json.dumps(data)
     
-class StructuredMessage(Message):
-    """
-    Facebook Messenger message
-    model for structured messages
-    """
-
-    button_type = 'button'
-    generic_type = 'generic'
-
-    def __init__(self, type):
-        self.title = ''
-        self.sub_title = ''
-        self.buttons = []
-        self.type = type
-
-    def to_json(self):
-        message = {}
-        message['message'] = {
-                'attachment' : {
-                    'type' : 'template',
-                }
-            }
-
-        if self.type == self.button_type:
-            message['message']['attachment']['payload'] = {
-                'template_type' : 'button',
-                'text' : self.title,
-                'buttons' : [b.to_json() for b in self.buttons]
-            }
-        else:
-            pass
-
-        return json.dumps(message)
 
 class ReceivedMessage(Message):
     """

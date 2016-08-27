@@ -14,6 +14,7 @@ class Button(object):
         
         if self.type == 'web_url':
             request_payload['url'] = self.url
+        
         if self.type == 'postback':
             request_payload['payload'] = self.payload
 
