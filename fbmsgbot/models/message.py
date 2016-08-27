@@ -1,10 +1,31 @@
 import json
 
 class Message():
- 
+    """
+    Base message object
+    """
+
+    def __init__(self, recipient, type, **kwargs):
+
+        self.recipient = recipient
+        self.type = type
+        self.kwargs = kwargs
+
     def to_json(self, text=None, attachment=None):
          """Returns json representation of message"""
 
+        data = {}
+
+        if self.type == 'text':
+            data['text'] = self.kwargs 
+        else:
+            data['attachment'] = {}
+            data['attachment']['type'] = self.type
+            elif self.type == 'template':
+                template = self.kwargs['template']
+                data['attachment']['payload'] = template.to_json()
+            else:
+                data['attachment']['payload']['url'] = self.kwargs['url']
 
 class TextMessage(Message):
     """
