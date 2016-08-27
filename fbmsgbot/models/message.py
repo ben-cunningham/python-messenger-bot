@@ -1,32 +1,47 @@
-import abc, json
+import json
+
+supported_types = [
+    'text',
+    'image',
+    'video',
+    'audio',
+    'file',
+    'template' 
+]
 
 class Message():
-    __metaclass__  = abc.ABCMeta
- 
-    @abc.abstractmethod
-    def to_json(self):
-         """Returns json representation of message"""
-
-
-class TextMessage(Message):
     """
-    Facebook Messenger message
-    model for simple text responses
+    Base message object
     """
 
-    def __init__(self, message, recipient):
-        self.message = message
-        self.recipient_id = recipient
+    def __init__(self, recipient, type, payload):
+
+        assert type in supported_types, 'That is not a supported type'
+
+        self.recipient = recipient
+        self.type = type
+        self.payload = payload
 
     def to_json(self):
-        message = {
-            'message': self.message,
-            'recipient': self.recipient_id
-        }
+        """Returns json representation of message"""
+        data = {}
+        # TODO: check types on the payload
 
-        return json.dumps(message) 
+        if self.type == 'text':
+            data['text'] = self.payload
+        else:
+            data['attachment'] = {}
+            data['attachment']['type'] = self.type
+            if self.type == 'template':
+                template = self.payload
+                data['attachment']['payload'] = template.to_json()
+            else:
+                data['attachment']['payload'] = {
+                    'url': self.payload
+                }
+
+        return json.dumps(data)
     
-
 class StructuredMessage(Message):
     """
     Facebook Messenger message
