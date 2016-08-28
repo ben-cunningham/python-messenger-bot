@@ -5,15 +5,16 @@ import json
 """
 class Button(object):
     
-    def __init__(self, type_, title):
+    def __init__(self, type_, title, payload):
         self.title = title
         self.type = type_
+        self.payload = payload
 
     def to_json(self):
         request_payload = {}
         
         if self.type == 'web_url':
-            request_payload['url'] = self.url
+            request_payload['url'] = self.payload
         
         if self.type == 'postback':
             request_payload['payload'] = self.payload
@@ -22,18 +23,6 @@ class Button(object):
         request_payload['type'] = self.type
 
         return request_payload
-
-class PayloadButton(Button):
-
-    def __init__(self, title, payload):
-        super(PayloadButton, self).__init__('postback', title)  
-        self.payload = payload
-
-class WebUrlButton(Button):
-    
-    def __init__(self, title, url):    
-        super(WebUrlButton, self) .__init__('web_url', title)
-        self.url = url
 
 """
 @brief: elements live inside of structured messages 
