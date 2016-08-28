@@ -1,5 +1,3 @@
-import json
-
 supported_types = [
     'text',
     'image',
@@ -47,7 +45,7 @@ class Message():
             'message': data
         }
 
-        return json.dumps(message)
+        return message
     
 
 class ReceivedMessage(Message):

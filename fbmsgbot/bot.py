@@ -15,10 +15,12 @@ class Bot():
 
     def send_message(self, message):
 
+        message = json.dumps(message.to_json())
+
         response, error = self.client.submit_request(
                             '/me/messages', 
                             'POST', 
-                            message.to_json())
+                            message)
 
         if error is not None:
             print 'Error Encountered! Could not send message\n'
