@@ -41,7 +41,8 @@ class Bot():
         for entry in entries:
             message = {}
             for msg in entry['messaging']:
-                messages.append(ReceivedMessage(msg))
+                if msg.get('message') and msg['message'].get('text'):
+                    messages.append(ReceivedMessage(msg))
 
         return messages
 
