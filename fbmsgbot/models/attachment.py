@@ -35,7 +35,6 @@ class WebUrlButton(Button):
         super(WebUrlButton, self) .__init__('web_url', title)
         self.url = url
 
-
 """
 @brief: elements live inside of structured messages 
 """
