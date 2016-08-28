@@ -28,9 +28,9 @@ class TestBot(unittest.TestCase):
             }', status=201)
 
         bot = Bot("abc")
-        message = Message('123abc', 'image', 'google.com')          
+        message = Message('image', 'google.com')          
 
-        response, error = bot.send_message(message)
+        response, error = bot.send_message(message, '123abc')
         assert response['recipient_id'] == 1008
         assert response['message_id'] == "mid.1"
         assert error is None
@@ -56,7 +56,7 @@ class TestBot(unittest.TestCase):
                         title='Title',
                         buttons=buttons,)
 
-        bot.send_message(message)
+        bot.send_message(message, '123abc')
 
     @httpretty.activate
     def test_send_generic_structured_message(self):

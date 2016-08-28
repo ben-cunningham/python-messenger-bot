@@ -12,15 +12,14 @@ class TestMessage(unittest.TestCase):
     """
 
     def test_message(self):
-        message = Message('123abc', 'image', 'google.com')
+        message = Message('image', 'google.com')
         assert message.type == 'image'
         assert message.payload == 'google.com'
-        assert message.recipient == '123abc'
 
     def test_text_message_to_json(self):
-        message = Message('123abc', 'image', 'google.com')
+        message = Message('image', 'google.com')
         json_ = message.to_json()
-        json_ = json.loads(json_)
+        print json_
         assert json_['attachment']['type'] == 'image'
         assert json_['attachment']['payload']['url'] == 'google.com'
 
@@ -38,11 +37,7 @@ class TestTemplate(unittest.TestCase):
                         title='title',
                   )
 
-        json_ = message.to_json()
-        json_ = json.loads(json_)
-        assert json_['message']['attachment']['type'] == 'template'
-
-        payload = json_['message']['attachment']['payload']
+        payload = message.to_json()
         assert payload['template_type'] == 'button'
         assert payload['text'] == 'title'
         assert payload['buttons'][0]['title'] =='title'
@@ -64,10 +59,6 @@ class TestTemplate(unittest.TestCase):
         message = Template(Template.generic_type,
                         elements=elements,)
 
-        json_ = message.to_json()
-        json_ = json.loads(json_)
-
-        assert json_['message']['attachment']['type'] == 'template'
-        payload = json_['message']['attachment']['payload']
+        payload = message.to_json()
         assert payload['template_type'] == 'generic'
         assert payload['elements'][0]['title'] =='t'
