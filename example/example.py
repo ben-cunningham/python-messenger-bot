@@ -25,6 +25,9 @@ def webhook():
 
     	msg = None
 
+    	if not hasattr(m, 'text'):
+    		break
+
     	if m.text == 'button':
     		buttons = []
     		b = WebUrlButton('google', 'https://www.google.ca')
@@ -39,7 +42,6 @@ def webhook():
     		msg = Message(m.sender, 'text', payload)
 
     	response, error = bot.send_message(msg)
-    	print response
 
     	if error:
     		return 'Bad Request'
