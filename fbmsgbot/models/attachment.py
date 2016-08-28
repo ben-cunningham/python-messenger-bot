@@ -21,7 +21,7 @@ class Button(object):
         request_payload['title'] = self.title
         request_payload['type'] = self.type
 
-        return json.dumps(request_payload)
+        return request_payload
 
 class PayloadButton(Button):
 
@@ -60,4 +60,4 @@ class Element():
             'buttons': buttons
         }
 
-        return json.dumps(payload)
+        return payload

@@ -46,6 +46,4 @@ class Template(object):
         elif self.type == self.receipt_type:
             raise NotImplementedError
 
-
-
-        return json.dumps(message)
+        return payload
