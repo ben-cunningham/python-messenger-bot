@@ -15,6 +15,12 @@ import json
 app = Flask(__name__)
 bot = Bot(os.environ['PYBOT_TOKEN'])
 
+def set_welcome():
+	response, error = bot.set_welcome("Welcome to PyBot!")
+	print response
+	print error
+
+
 @app.route('/', methods=['GET', 'POST'])
 def webhook():
     if request.args.get("hub.verify_token") == 'test_token':
@@ -49,5 +55,6 @@ def webhook():
     return 'OK'
 
 if __name__ == "__main__":
-    app.debug = True
-    app.run(port=8000)
+	app.debug = True
+	set_welcome()
+	app.run(port=8000)
