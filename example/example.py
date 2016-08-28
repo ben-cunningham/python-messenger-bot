@@ -42,12 +42,12 @@ def webhook():
     		tmpl = Template('generic', elements=elements)
 
     		payload = tmpl
-    		msg = Message(m.sender, 'template', payload)
+    		msg = Message('template', payload)
     	else:
     		payload = m.text
-    		msg = Message(m.sender, 'text', payload)
+    		msg = Message('text', payload)
 
-    	response, error = bot.send_message(msg)
+    	response, error = bot.send_message(msg, m.sender)
 
     	if error:
     		return 'Bad Request'

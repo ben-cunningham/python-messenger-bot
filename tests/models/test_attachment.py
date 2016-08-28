@@ -24,13 +24,11 @@ class TestButton(unittest.TestCase):
         payload = PayloadButton("Button title2", "USR_DEFINE")
 
         webjson = weburl.to_json()
-        webjson = json.loads(webjson)
         assert webjson['type'] == "web_url", 'WebUrl type failed'
         assert webjson['title'] == "Button title", "WebUrl title failed"
         assert webjson['url'] == "www.test.com", "WebUrl URL failed"
 
         payloadjson = payload.to_json()
-        payloadjson = json.loads(payloadjson)
         assert payloadjson['type'] == "postback", "Payload type failed"
         assert payloadjson['title'] == "Button title2", "Button title failed"
         assert payloadjson['payload'] == "USR_DEFINE", "Button payload failed"
@@ -54,7 +52,7 @@ class TestElement(unittest.TestCase):
         button_list = [weburl, payload]
         element = Element("Grey Shirt", "www.greyshirt.com", "soft shirt", button_list)
         
-        element_json = json.loads(element.to_json())
+        element_json = element.to_json()
         assert element_json['title'] == "Grey Shirt"
         assert element_json['image_url'] == "www.greyshirt.com"
         assert element_json['subtitle'] == "soft shirt"
