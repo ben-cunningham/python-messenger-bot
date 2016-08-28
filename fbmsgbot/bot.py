@@ -1,3 +1,5 @@
+import json
+
 from http_client import HttpClient
  
 from models.message import ReceivedMessage
@@ -24,12 +26,23 @@ class Bot():
         
         return response, error
 
-    def set_welcome(self, message, completion):
+    def set_welcome(self, message):
 
-        self.client.submit_request(
+        greeting = {
+            'setting_type': 'greeting',
+            'greeting': {
+                'text': message
+            }
+        }
+
+        data = json.dumps(greeting)
+
+        response, error = self.client.submit_request(
             '/me/thread_settings',
             'POST',
-            message.to_json())
+            data)
+
+        return response, error
 
     def messages_for_request(self, request):
         """
