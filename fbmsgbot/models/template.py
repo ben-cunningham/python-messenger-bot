@@ -16,19 +16,14 @@ class Template(object):
         self.kwargs = kwargs
 
     def to_json(self):
-        message = {}
-        message['message'] = {
-                'attachment' : {
-                    'type' : 'template',
-                }
-            }
+        payload = {}
 
         if self.type == self.button_type:
             assert all([isinstance(button, Button)
             	for button in self.kwargs['buttons']]), "Missing type button"
             
             buttons = [json.loads(b.to_json()) for b in self.kwargs['buttons']]
-            message['message']['attachment']['payload'] = {
+            payload = {
                 'template_type' : 'button',
                 'text' : self.kwargs['title'],
                 'buttons' : buttons
@@ -37,8 +32,9 @@ class Template(object):
         elif self.type == self.generic_type:
         	# elements = kwargs.get('elements')
         	# TODO: Check types and check if elements exist in kwargs
-            elements = [json.loads(element.to_json()) for element in self.kwargs['elements']]
-            message['message']['attachment']['payload'] = {
+            elements = [element.to_json() for element in self.kwargs['elements']]
+            
+            payload = {
                 'template_type' : 'generic',
                 'elements': elements
             }
@@ -46,6 +42,4 @@ class Template(object):
         elif self.type == self.receipt_type:
             raise NotImplementedError
 
-
-
-        return json.dumps(message)
+        return payload

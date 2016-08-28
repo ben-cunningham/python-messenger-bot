@@ -21,7 +21,7 @@ class Button(object):
         request_payload['title'] = self.title
         request_payload['type'] = self.type
 
-        return json.dumps(request_payload)
+        return request_payload
 
 class PayloadButton(Button):
 
@@ -34,7 +34,6 @@ class WebUrlButton(Button):
     def __init__(self, title, url):    
         super(WebUrlButton, self) .__init__('web_url', title)
         self.url = url
-
 
 """
 @brief: elements live inside of structured messages 
@@ -60,4 +59,4 @@ class Element():
             'buttons': buttons
         }
 
-        return json.dumps(payload)
+        return payload
