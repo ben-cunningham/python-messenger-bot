@@ -13,14 +13,21 @@ class Bot():
         self.api_token = token
         self.client = HttpClient(token)
 
-    def send_message(self, message):
+    def send_message(self, message, recipient):
 
-        message = json.dumps(message.to_json())
+        payload = {
+            'recipient': {
+                'id': recipient,
+            },
+            'message': message.to_json()
+        }
+
+        payload = json.dumps(payload)
 
         response, error = self.client.submit_request(
                             '/me/messages', 
                             'POST', 
-                            message)
+                            payload)
 
         if error is not None:
             print 'Error Encountered! Could not send message\n'

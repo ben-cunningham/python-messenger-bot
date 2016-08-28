@@ -12,11 +12,10 @@ class Message():
     Base message object
     """
 
-    def __init__(self, recipient, type, payload):
+    def __init__(self, type, payload):
 
         assert type in supported_types, 'That is not a supported type'
 
-        self.recipient = recipient
         self.type = type
         self.payload = payload
 
@@ -38,14 +37,7 @@ class Message():
                     'url': self.payload
                 }
 
-        message = {
-            'recipient': {
-                'id': self.recipient,
-            },
-            'message': data
-        }
-
-        return message
+        return data
     
 
 class ReceivedMessage(Message):
