@@ -34,7 +34,7 @@ def webhook():
     	if not hasattr(m, 'text'):
     		break
 
-    	if m.text == 'button':
+    	if m.text == 'generic button':
     		buttons = []
     		b = WebUrlButton('google', 'https://www.google.ca')
     		buttons.append(b)
@@ -43,6 +43,14 @@ def webhook():
 
     		payload = tmpl
     		msg = Message('template', payload)
+        elif m.text == 'button':
+            buttons = []
+            b = WebUrlButton('google', 'https://www.google.ca')
+            buttons.append(b)
+            tmpl = Template('button', buttons=buttons, 
+                title='What site do you want to go to?')
+            payload = tmpl
+            msg = Message('template', payload)
     	else:
     		payload = m.text
     		msg = Message('text', payload)

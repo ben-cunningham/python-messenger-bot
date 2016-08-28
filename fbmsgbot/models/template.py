@@ -22,7 +22,7 @@ class Template(object):
             assert all([isinstance(button, Button)
             	for button in self.kwargs['buttons']]), "Missing type button"
             
-            buttons = [json.loads(b.to_json()) for b in self.kwargs['buttons']]
+            buttons = [b.to_json() for b in self.kwargs['buttons']]
             payload = {
                 'template_type' : 'button',
                 'text' : self.kwargs['title'],
