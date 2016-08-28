@@ -1,6 +1,6 @@
 import unittest, json
 
-from fbmsgbot.models.attachment import Element, Button, WebUrlButton, PayloadButton
+from fbmsgbot.models.attachment import Element, Button
 
 """
 Test Button
@@ -8,20 +8,20 @@ Test Button
 class TestButton(unittest.TestCase):
 
     def test_constructor(self):
-        weburl = WebUrlButton("Button title", "www.test.com")
+        weburl = Button('web_url', "Button title", "www.test.com")
 
         assert weburl.type == "web_url", 'WebUrl type failed'
         assert weburl.title == "Button title", "WebUrl title failed"
-        assert weburl.url == "www.test.com", "WebUrl URL failed"
+        assert weburl.payload == "www.test.com", "WebUrl URL failed"
 
-        payload = PayloadButton("Button title2", "USR_DEFINE")
+        payload = Button('postback', "Button title2", "USR_DEFINE")
         assert payload.type == "postback", "Payload type failed"
         assert payload.title == "Button title2", "Button title failed"
         assert payload.payload == "USR_DEFINE", "Button payload failed"
 
     def test_to_json(self):
-        weburl = WebUrlButton("Button title", "www.test.com")
-        payload = PayloadButton("Button title2", "USR_DEFINE")
+        weburl = Button('web_url', "Button title", "www.test.com")
+        payload = Button('postback', "Button title2", "USR_DEFINE")
 
         webjson = weburl.to_json()
         assert webjson['type'] == "web_url", 'WebUrl type failed'
@@ -36,8 +36,8 @@ class TestButton(unittest.TestCase):
 class TestElement(unittest.TestCase):
 
     def test_element(self):
-        weburl = WebUrlButton("Button title", "www.test.com")
-        payload = PayloadButton("Button title2", "USR_DEFINE")
+        weburl = Button('web_url', "Button title", "www.test.com")
+        payload = Button('postback', "Button title2", "USR_DEFINE")
         button_list = [weburl, payload]
         element = Element("Grey Shirt", "www.greyshirt.com", "soft shirt", button_list)
 
@@ -47,8 +47,8 @@ class TestElement(unittest.TestCase):
         assert element.buttons == [weburl, payload], "Element buttons error"
 
     def test_element_json(self):
-        weburl = WebUrlButton("Button title", "www.test.com")
-        payload = PayloadButton("Button title2", "USR_DEFINE")
+        weburl = Button('web_url', "Button title", "www.test.com")
+        payload = Button('postback', "Button title2", "USR_DEFINE")
         button_list = [weburl, payload]
         element = Element("Grey Shirt", "www.greyshirt.com", "soft shirt", button_list)
         
