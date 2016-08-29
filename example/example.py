@@ -52,7 +52,7 @@ def webhook():
                 title='Generic Template Element Title',
                 subtitle='My subtitle',
                 image_url='http://www.buffettworld.com/images/news_trump.jpg',
-                buttons = [
+                buttons=[
                     web_button,
                 ]
             )
