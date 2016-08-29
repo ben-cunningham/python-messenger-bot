@@ -2,7 +2,7 @@ import unittest, json
 
 from fbmsgbot.models.message import Message
 from fbmsgbot.models.template import Template
-from fbmsgbot.models.attachment import WebUrlButton
+from fbmsgbot.models.attachment import Button
 from fbmsgbot.models.attachment import Element
 
 
@@ -30,7 +30,7 @@ class TestTemplate(unittest.TestCase):
     """
 
     def test_button_template_button(self):
-        buttons = [WebUrlButton('title', 'url') for _ in range(3)]
+        buttons = [Button('web_url', 'title', 'url') for _ in range(3)]
         message = Template(
                         Template.button_type,
                         buttons=buttons,
@@ -48,7 +48,7 @@ class TestTemplate(unittest.TestCase):
         title = 't'
         img_url = 'www.e.com'
         subtitle = 's'
-        buttons = [WebUrlButton('title', 'url') for i in range(3)]
+        buttons = [Button('web_url', 'title', 'url') for i in range(3)]
         largs = [title, img_url, subtitle, buttons]
         elements = [Element(title,
                             img_url,

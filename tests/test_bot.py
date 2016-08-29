@@ -4,7 +4,7 @@ import httpretty
 
 from fbmsgbot.bot import Bot
 from fbmsgbot.models.message import Message
-from fbmsgbot.models.attachment import WebUrlButton
+from fbmsgbot.models.attachment import Button
 from fbmsgbot.models.attachment import Element
 from fbmsgbot.models.template import Template
 from fbmsgbot.resources.urls import FACEBOOK_MESSAGES_POST_URL
@@ -50,7 +50,7 @@ class TestBot(unittest.TestCase):
         bot = Bot("abc")
         buttons = []
         for i in range(3):
-            buttons.append(WebUrlButton(str(i), "http://ex.com"))
+            buttons.append(Button('web_url', str(i), "http://ex.com"))
         
         message = Template(Template.button_type,
                         title='Title',
