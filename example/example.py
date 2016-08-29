@@ -23,46 +23,68 @@ def set_welcome():
 
 @app.route('/', methods=['GET', 'POST'])
 def webhook():
+    # For webhook verification when registering app 
     if request.args.get("hub.verify_token") == 'test_token':
         return request.args.get("hub.challenge")
 
+    # Recieve a list of available messages
     msgs = bot.messages_for_request(request)
+    
     for m in msgs:
+        text = m.text # Retrieve what user sent
+        recipient = m.sender # Retrieve who sent it
+         
+        if m.text == 'template':
 
-        msg = None
+            web_button = Button(
+                type='web_url',
+                title='My Button Image',
+                payload='http://www.newton.ac.uk/files/covers/968361.jpg'
+            )
 
-        if not hasattr(m, 'text'):
-            break
+            postback_button = Button(
+                type='postback',
+                title='My Postback',
+                payload="<USER DEFINED PAYLOAD>",
+            )
+            
+            element = Element(
+                title='Generic Template Element Title',
+                subtitle='My subtitle',
+                image_url='http://www.buffettworld.com/images/news_trump.jpg',
+                buttons = [
+                    web_button,
+                ]
+            )
+            
+            generic_template = Template(
+                Template.generic_type,
+                elements=[
+                    element,                    
+                ]
+            )
 
-        if m.text == 'generic': # send a generic template
-            buttons = []
-            ele_url = 'http://www.newton.ac.uk/files/covers/968361.jpg'
-            b = Button('web_url', 'My Image', ele_url)
-            buttons.append(b)
-            elements = [Element('Generic Template Element Title',
-                            ele_url,
-                            'Generic Template Element Subtitle',
-                            buttons)]
+            button_template = Template(
+                Template.button_type,
+                title="My Button template title",
+                buttons=[
+                    web_button, postback_button
+                ]
+            )
 
-            tmpl = Template('generic', elements=elements)
-            msg = Message('template', tmpl)
+            msg = Message('template', button_template)
+            response, error = bot.send_message(msg, recipient)
+
+            msg2 = Message('template', generic_template)
+            response, error = bot.send_message(msg2, recipient)
+
         
-        elif m.text == 'button': # send a button template
-            buttons = []
-            b = Button('web_url', 'Google', 'https://www.google.ca')
-            buttons.append(b)
-            tmpl = Template('button', buttons=buttons, 
-                            title='What site do you want to go to?')
-            msg = Message('template', tmpl)
-        
-        else: # echo what the user said
-            payload = m.text
+        else: 
+            # Echo back to user
+            # Send regular 'text' message
+            payload = text
             msg = Message('text', payload)
-
-        response, error = bot.send_message(msg, m.sender)
-
-        if error:
-            return 'Bad Request'
+            bot.send_message(msg, recipient)
 
     return 'OK'
 
