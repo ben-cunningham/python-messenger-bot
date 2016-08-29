@@ -34,7 +34,7 @@ def webhook():
     	if not hasattr(m, 'text'):
     		break
 
-    	if m.text == 'generic button':
+    	if m.text == 'generic':
     		buttons = []
     		b = WebUrlButton('google', 'https://www.google.ca')
     		buttons.append(b)
