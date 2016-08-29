@@ -8,7 +8,7 @@ sys.path.append("..")
 from fbmsgbot.bot import Bot
 from fbmsgbot.models.message import Message
 from fbmsgbot.models.template import Template
-from fbmsgbot.models.attachment import WebUrlButton, Element
+from fbmsgbot.models.attachment import Button, Element
 
 import json
 
@@ -16,9 +16,9 @@ app = Flask(__name__)
 bot = Bot(os.environ['PYBOT_TOKEN'])
 
 def set_welcome():
-	response, error = bot.set_welcome("Welcome to PyBot!")
-	print response
-	print error
+    response, error = bot.set_welcome("Welcome to PyBot!")
+    print response
+    print error
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -29,37 +29,44 @@ def webhook():
     msgs = bot.messages_for_request(request)
     for m in msgs:
 
-    	msg = None
+        msg = None
 
-    	if not hasattr(m, 'text'):
-    		break
+        if not hasattr(m, 'text'):
+            break
 
-    	if m.text == 'generic': # send a generic template
-    		buttons = []
-    		b = WebUrlButton('google', 'https://www.google.ca')
-    		buttons.append(b)
-    		elements = [Element('test', 'http://www.newton.ac.uk/files/covers/968361.jpg', 'test subtitle', buttons)]
-    		tmpl = Template('generic', elements=elements)
-    		msg = Message('template', tmpl)
+        if m.text == 'generic': # send a generic template
+            buttons = []
+            ele_url = 'http://www.newton.ac.uk/files/covers/968361.jpg'
+            b = Button('web_url', 'My Image', ele_url)
+            buttons.append(b)
+            elements = [Element('Generic Template Element Title',
+                            ele_url,
+                            'Generic Template Element Subtitle',
+                            buttons)]
+
+            tmpl = Template('generic', elements=elements)
+            msg = Message('template', tmpl)
+        
         elif m.text == 'button': # send a button template
             buttons = []
-            b = WebUrlButton('google', 'https://www.google.ca')
+            b = Button('web_url', 'Google', 'https://www.google.ca')
             buttons.append(b)
             tmpl = Template('button', buttons=buttons, 
                             title='What site do you want to go to?')
             msg = Message('template', tmpl)
-    	else: # echo what the user said
-    		payload = m.text
-    		msg = Message('text', payload)
+        
+        else: # echo what the user said
+            payload = m.text
+            msg = Message('text', payload)
 
-    	response, error = bot.send_message(msg, m.sender)
+        response, error = bot.send_message(msg, m.sender)
 
-    	if error:
-    		return 'Bad Request'
+        if error:
+            return 'Bad Request'
 
     return 'OK'
 
 if __name__ == "__main__":
-	app.debug = True
-	set_welcome()
-	app.run(port=8000)
+    app.debug = True
+    set_welcome()
+    app.run(port=8000)
