@@ -40,17 +40,14 @@ def webhook():
     		buttons.append(b)
     		elements = [Element('test', 'http://www.newton.ac.uk/files/covers/968361.jpg', 'test subtitle', buttons)]
     		tmpl = Template('generic', elements=elements)
-
-    		payload = tmpl
-    		msg = Message('template', payload)
+    		msg = Message('template', tmpl)
         elif m.text == 'button':
             buttons = []
             b = WebUrlButton('google', 'https://www.google.ca')
             buttons.append(b)
             tmpl = Template('button', buttons=buttons, 
-                title='What site do you want to go to?')
-            payload = tmpl
-            msg = Message('template', payload)
+                            title='What site do you want to go to?')
+            msg = Message('template', tmpl)
     	else:
     		payload = m.text
     		msg = Message('text', payload)
