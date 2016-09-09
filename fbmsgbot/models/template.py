@@ -1,5 +1,5 @@
 from attachment import Button
-import json 
+
 
 class Template(object):
     """
@@ -19,26 +19,29 @@ class Template(object):
         payload = {}
 
         if self.type == self.button_type:
-            assert all([isinstance(button, Button)
-            	for button in self.kwargs['buttons']]), "Missing type button"
-            
-            buttons = [b.to_json() for b in self.kwargs['buttons']]
+            # assert all([isinstance(button, Button)
+            #         for button in self.kwargs['buttons']]), \
+            # "Missing type button"
+            buttons = self.kwargs['buttons']
+            buttons = [b.to_json() for b in buttons]
+
             payload = {
-                'template_type' : 'button',
-                'text' : self.kwargs['title'],
-                'buttons' : buttons
+                'template_type': 'button',
+                'text': self.kwargs['title'],
+                'buttons': buttons
             }
-        
+
         elif self.type == self.generic_type:
-        	# elements = kwargs.get('elements')
-        	# TODO: Check types and check if elements exist in kwargs
-            elements = [element.to_json() for element in self.kwargs['elements']]
-            
+            # elements = kwargs.get('elements')
+            # TODO: Check types and check if elements exist in kwargs
+            elements = self.kwargs['elements']
+            elements = [element.to_json() for element in elements]
+
             payload = {
-                'template_type' : 'generic',
+                'template_type': 'generic',
                 'elements': elements
             }
-        
+
         elif self.type == self.receipt_type:
             raise NotImplementedError
 
