@@ -1,17 +1,5 @@
 from attachment import Button
 
-receipt_properties = [
-    'recipient_name',
-    'order_number',
-    'currency',
-    'payment_method',
-    'order_url',
-    'timestamp',
-    'address',
-    'summary',
-    'adjustments',
-]
-
 
 class Template(object):
     """
@@ -62,9 +50,6 @@ class Template(object):
         return payload
     
     def update_receipt(self):
-        
-        if any(kwarg not in receipt_properties for kwarg in self.kwargs):
-                raise ValueError("Incorrect keyword-argument given")
         
         elements = [element.to_json() for element in self.kwargs['elements']]
         payload = {

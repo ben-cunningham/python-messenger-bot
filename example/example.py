@@ -9,7 +9,6 @@ from fbmsgbot.bot import Bot
 from fbmsgbot.models.message import Message
 from fbmsgbot.models.template import Template
 from fbmsgbot.models.attachment import Button, Element
-
 from fbmsgbot.models.receipt import ReceiptElement
 
 import json
