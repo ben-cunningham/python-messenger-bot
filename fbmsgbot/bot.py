@@ -1,8 +1,7 @@
 import json
-
 from http_client import HttpClient
- 
 from models.message import ReceivedMessage
+
 
 class Bot():
     """
@@ -10,6 +9,7 @@ class Bot():
     """
 
     def __init__(self, token):
+
         self.api_token = token
         self.client = HttpClient(token)
 
@@ -25,14 +25,14 @@ class Bot():
         payload = json.dumps(payload)
 
         response, error = self.client.submit_request(
-                            '/me/messages', 
-                            'POST', 
+                            '/me/messages',
+                            'POST',
                             payload)
 
         if error is not None:
             print 'Error Encountered! Could not send message\n'
             print 'Message: %s' % error
-        
+
         return response, error
 
     def set_welcome(self, message):
@@ -61,7 +61,6 @@ class Bot():
         entries = request.json['entry']
         messages = []
         for entry in entries:
-            message = {}
             for msg in entry['messaging']:
                 if msg.get('message') and msg['message'].get('text'):
                     messages.append(ReceivedMessage(msg))

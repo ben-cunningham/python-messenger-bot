@@ -4,8 +4,9 @@ supported_types = [
     'video',
     'audio',
     'file',
-    'template' 
+    'template',
 ]
+
 
 class Message():
     """
@@ -26,9 +27,12 @@ class Message():
 
         if self.type == 'text':
             data['text'] = self.payload
+
         else:
+
             data['attachment'] = {}
             data['attachment']['type'] = self.type
+
             if self.type == 'template':
                 template = self.payload
                 data['attachment']['payload'] = template.to_json()
@@ -38,7 +42,7 @@ class Message():
                 }
 
         return data
-    
+
 
 class ReceivedMessage(Message):
     """
@@ -57,4 +61,3 @@ class ReceivedMessage(Message):
 
     def to_json(self):
         raise NotImplementedError
-

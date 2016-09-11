@@ -39,7 +39,7 @@ class TestElement(unittest.TestCase):
         weburl = Button('web_url', "Button title", "www.test.com")
         payload = Button('postback', "Button title2", "USR_DEFINE")
         button_list = [weburl, payload]
-        element = Element("Grey Shirt", "www.greyshirt.com", "soft shirt", button_list)
+        element = Element("Grey Shirt", "soft shirt", "www.greyshirt.com",  button_list)
 
         assert element.title == "Grey Shirt", "Element title error"
         assert element.image_url == "www.greyshirt.com", "Element URL error"
@@ -50,7 +50,7 @@ class TestElement(unittest.TestCase):
         weburl = Button('web_url', "Button title", "www.test.com")
         payload = Button('postback', "Button title2", "USR_DEFINE")
         button_list = [weburl, payload]
-        element = Element("Grey Shirt", "www.greyshirt.com", "soft shirt", button_list)
+        element = Element("Grey Shirt", "soft shirt", "www.greyshirt.com", button_list)
         
         element_json = element.to_json()
         assert element_json['title'] == "Grey Shirt"
