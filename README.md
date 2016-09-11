@@ -44,9 +44,33 @@ msg = Message('text', 'Hello, World!')
 bot.send_message(msg, recipient_id)
 ```
 
+#### Sending an Image Message
+```python
+msg = Message('image', 'http://www.myfiles.com/path/to/img.jpg')
+bot.send_message(msg, recipient_id)
+```
+
+#### Sending an Audio Message
+```python
+msg = Message('audio', 'http://www.myfiles.com/path/to/audio.mp3')
+bot.send_message(msg, recipient_id)
+```
+
+#### Sending a Video Message
+```python
+msg = Message('video', 'http://www.myfiles.com/path/to/video.mp4')
+bot.send_message(msg, recipient_id)
+```
+
+#### Sending a File Message
+```python
+msg = Message('file', 'http://www.myfiles.com/path/to/pdf.pdf')
+bot.send_message(msg, recipient_id)
+```
+
 ### Structured
 
-The Messenger platform also allows users to send [structured messages](https://developers.facebook.com/docs/messenger-platform/product-overview/conversation). These are composed of Templates which allow for rich media, buttons, and reciepts. 
+The Messenger platform also allows users to send [structured messages](https://developers.facebook.com/docs/messenger-platform/send-api-reference/generic-template). These are composed of Templates which allow for rich media, buttons, and reciepts. 
 
 
 #### Buttons
