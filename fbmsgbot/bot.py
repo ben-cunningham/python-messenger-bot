@@ -73,3 +73,22 @@ class Bot():
         """
 
         raise NotImplementedError
+
+    def set_persistent_menu(self, buttons):
+
+        payload = {
+            "setting_type": "call_to_actions",
+            "thread_state": "existing_thread",
+            "call_to_actions": [    
+                button.to_json() for button in buttons
+            ]
+        }
+        
+        data = json.dumps(payload)
+        response, error = self.client.submit_request(
+            '/me/thread_settings',
+            'POST',
+             data)
+
+        return response, error
+
