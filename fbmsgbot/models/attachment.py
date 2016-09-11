@@ -28,8 +28,8 @@ class Button(object):
         return request_payload
 
 
-class Element():
-    """Elements are features of Templates"""
+class Element(object):
+    """Elements are features of Templates""" 
 
     def __init__(self, title="", subtitle="", image_url="", buttons=None):
 

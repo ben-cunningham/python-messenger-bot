@@ -1,6 +1,18 @@
 from attachment import Button
 
 
+receipt_properties = [
+    'recipient_name',
+    'order_number',
+    'currency',
+    'payment_method',
+    'order_url',
+    'timestamp',
+    'address',
+    'summary',
+    'adjustments',
+]
+
 class Template(object):
     """
     Facebook Messenger message
@@ -14,6 +26,20 @@ class Template(object):
     def __init__(self, type, **kwargs):
         self.type = type
         self.kwargs = kwargs
+
+        if self.type == self.receipt_type:
+            assert 'recipient_name' in self.kwargs, \
+                'recipient_name is required'
+            assert 'order_number' in self.kwargs, \
+                'order_number is required'
+            assert 'currency' in self.kwargs, \
+                'currency is required'
+            assert 'payment_method' in self.kwargs, \
+                'payment_method is required'
+            assert 'elements' in self.kwargs, \
+                'elements is required' 
+            assert 'summary' in self.kwargs, \
+                'summary is required'
 
     def to_json(self):
         payload = {}
@@ -43,6 +69,15 @@ class Template(object):
             }
 
         elif self.type == self.receipt_type:
-            raise NotImplementedError
+            payload = {
+                'template_type': 'receipt'
+            }
+
+            elements = [element.to_json() for element in self.kwargs['elements']]
+            payload['elements'] = elements
+
+            for prop in receipt_properties:
+                if prop in self.kwargs:
+                    payload[prop] = self.kwargs[prop]
 
         return payload
