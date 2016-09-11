@@ -28,7 +28,7 @@ You should run `flake8 <PATH_TO_CODE>` to ensure changes conform to PEP8 standar
 
 ## Usage 
 
-### Basic
+### Basic Messages
 
 Pybot's models represent Facebook Messenger API's JSON structure as closely as possible. We have made it as easy as possible to compose messages with templates, elements and buttons. 
 
@@ -68,7 +68,7 @@ msg = Message('file', 'http://www.myfiles.com/path/to/pdf.pdf')
 bot.send_message(msg, recipient_id)
 ```
 
-### Structured
+### Structured Messages
 
 The Messenger platform also allows users to send [structured messages](https://developers.facebook.com/docs/messenger-platform/send-api-reference/generic-template). These are composed of Templates which allow for rich media, buttons, and reciepts. 
 
