@@ -11,6 +11,8 @@ from fbmsgbot.models.template import Template
 from fbmsgbot.models.attachment import Button, Element
 from fbmsgbot.models.receipt import ReceiptElement
 
+from fbmsgbot.models.receipt import ReceiptElement
+
 import json
 
 app = Flask(__name__)
