@@ -66,7 +66,7 @@ def webhook():
 
             button_template = Template(
                 Template.button_type,
-                title="My Button template title",
+                title='My Button template title',
                 buttons=[
                     web_button, postback_button
                 ]
@@ -80,10 +80,19 @@ def webhook():
 
         
         else: 
-            # Echo back to user
-            # Send regular 'text' message
             payload = text
+            # Create image message
+            msg = Message('image', 'http://www.buffettworld.com/images/news_trump.jpg')
+            # Create audio message
+            msg = Message('audio', 'http://www.stephaniequinn.com/Music/Canon.mp3')
+            # Create video message
+            msg = Message('video', 'http://clips.vorwaerts-gmbh.de/VfE_html5.mp4')
+            # Create file message
+            msg = Message('file', 'http://www.pdf995.com/samples/pdf.pdf' )
+            
+            # Echo back to user
             msg = Message('text', payload)
+            # Send regular message
             bot.send_message(msg, recipient)
 
     return 'OK'
