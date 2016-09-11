@@ -75,6 +75,11 @@ class Bot():
         raise NotImplementedError
 
     def set_persistent_menu(self, buttons):
+        """
+        Sets the persistent menu. 
+        @params: buttons -> list of button objects
+        @moreinfo: https://developers.facebook.com/docs/messenger-platform/thread-settings/persistent-menu
+        """
 
         payload = {
             "setting_type": "call_to_actions",
