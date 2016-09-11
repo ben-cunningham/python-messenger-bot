@@ -80,6 +80,12 @@ class Bot():
         @params: buttons -> list of button objects
         @moreinfo: https://developers.facebook.com/docs/messenger-platform/thread-settings/persistent-menu
         """
+        MAX_BUTTONS = 5
+        if len(buttons) > MAX_BUTTONS:
+            raise TypeError(
+                "Persistent menus have maximum %d buttons. " \
+                "Found: %d" % (MAX_BUTTONS, len(buttons))
+            )
 
         payload = {
             "setting_type": "call_to_actions",
