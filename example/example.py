@@ -136,9 +136,30 @@ def webhook():
             # Send text message
             bot.send_message(msg, recipient)
 
+
+
     return 'OK'
 
 if __name__ == "__main__":
     app.debug = True
-    set_welcome()
+    
+    web_button = Button(
+        type='web_url',
+        title='My Button Image',
+        payload='http://www.newton.ac.uk/files/covers/968361.jpg'
+    )
+
+    postback_button = Button(
+        type='postback',
+        title='My Postback',
+        payload="My defined payload string",
+    )
+    
+    bot.set_welcome("Welcome to PyBot!")
+    bot.set_persistent_menu([
+        web_button,
+        postback_button,
+    ])
+    
+
     app.run(port=8000)
