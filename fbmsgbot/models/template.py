@@ -1,16 +1,14 @@
 from attachment import Button
 
-receipt_properties = [
+receipt_properties = {
     'recipient_name',
     'order_number',
     'currency',
     'payment_method',
-    'order_url',
-    'timestamp',
     'elements',
-    'address',
     'summary'
-]
+}
+
 
 class Template(object):
     """
@@ -33,10 +31,6 @@ class Template(object):
 
         if self.type not in self.types:
             raise ValueError("Incorrect type param: ", self.type)
-
-        if self.type == self.receipt_type:
-            if any(kwarg not in receipt_properties for kwarg in self.kwargs):
-                raise ValueError("Incorrect keyword-argument given") 
     
     def update_button(self):
         
@@ -65,13 +59,19 @@ class Template(object):
         return payload
     
     def update_receipt(self):
-        
-        elements = [element.to_json() for element in self.kwargs['elements']]
-        self.kwargs['elements'] = elements
+       
+        for _property in receipt_properties:
+            if _property not in self.kwargs:
+                raise ValueError("Incorrect keyword-argument given, needed: ", _property) 
 
         payload = {}
+        elements = self.kwargs['elements']
+        elements = [element.to_json() for element in elements]
+        self.kwargs['elements'] = elements
 
         for prop in receipt_properties:
+            # Note.. given success of exception above I think
+            # This if statement could be reduced
             if prop in self.kwargs:
                 payload[prop] = self.kwargs[prop]
 
