@@ -4,6 +4,7 @@ from fbmsgbot.models.message import Message
 from fbmsgbot.models.template import Template
 from fbmsgbot.models.attachment import Button
 from fbmsgbot.models.attachment import Element
+from fbmsgbot.models.receipt import ReceiptElement
 
 
 class TestMessage(unittest.TestCase):
@@ -62,3 +63,45 @@ class TestTemplate(unittest.TestCase):
         payload = message.to_json()
         assert payload['template_type'] == 'generic'
         assert payload['elements'][0]['title'] =='t'
+
+    def test_receipt_template(self):
+        
+        element = ReceiptElement(
+            title='My Title',
+            subtitle='A very good subtitle',
+            quantity='15',
+            price=1999,
+            currency='CAD',
+            image_url='google.com'
+        )
+
+        receipt = Template(Template.receipt_type,
+            recipient_name= 'name',
+            order_number='1',
+            currency='CAD',
+            payment_method='Visa',
+            order_url='google.com',
+            elements=[element],
+            address={
+                'street_1': '1 Hacker Way',
+                'city': 'Vancouver',
+                'state': 'BC',
+                'country': 'CA',
+                'postal_code': '1A1A1A'
+
+            },
+            summary={
+                'subtotal': 75.00,
+                'shipping_cost': 4.95,
+                'total_tax': 6.19,
+                'total_cost': 56.14
+            }
+        )
+
+        receipt = receipt.to_json()
+        assert receipt['recipient_name'] == 'name'
+        assert receipt['order_number'] == '1'
+        assert receipt['currency'] == 'CAD'
+        assert receipt['payment_method'] == 'Visa'
+        assert receipt['order_url'] == 'google.com'
+
