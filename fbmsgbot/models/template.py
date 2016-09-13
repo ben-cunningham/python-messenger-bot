@@ -1,5 +1,16 @@
 from attachment import Button
 
+receipt_properties = [
+    'recipient_name',
+    'order_number',
+    'currency',
+    'payment_method',
+    'order_url',
+    'timestamp',
+    'elements',
+    'address',
+    'summary'
+]
 
 class Template(object):
     """
@@ -22,6 +33,10 @@ class Template(object):
 
         if self.type not in self.types:
             raise ValueError("Incorrect type param: ", self.type)
+
+        if self.type == self.receipt_type:
+            if any(kwarg not in receipt_properties for kwarg in self.kwargs):
+                raise ValueError("Incorrect keyword-argument given") 
     
     def update_button(self):
         
