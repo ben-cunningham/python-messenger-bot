@@ -67,9 +67,9 @@ class Template(object):
     def update_receipt(self):
         
         elements = [element.to_json() for element in self.kwargs['elements']]
-        payload = {
-            'elements': elements
-        }
+        self.kwargs['elements'] = elements
+
+        payload = {}
 
         for prop in receipt_properties:
             if prop in self.kwargs:

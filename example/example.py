@@ -71,7 +71,7 @@ def webhook():
                 Template.button_type,
                 title='My Button template title',
                 buttons=[
-                    web_button, postback_button
+                    web_button, postback_button,
                 ]
             )
 
@@ -98,7 +98,9 @@ def webhook():
                 currency='CAD',
                 payment_method='Visa',
                 order_url='http://petersapparel.com/order?order_id=123456',
-                elements=[element],
+                elements=[
+                    element,
+                ],
                 address={
                     'street_1': '1 Hacker Way',
                     'city': 'Vancouver',
