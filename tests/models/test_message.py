@@ -2,10 +2,7 @@ import unittest, json
 
 from fbmsgbot.models.message import Message
 from fbmsgbot.models.template import Template
-from fbmsgbot.models.attachment import Button
-from fbmsgbot.models.attachment import Element
-from fbmsgbot.models.receipt import ReceiptElement
-
+from fbmsgbot.models.attachment import Button, Element, ReceiptElement
 
 class TestMessage(unittest.TestCase):
     """
@@ -65,7 +62,6 @@ class TestTemplate(unittest.TestCase):
         assert payload['elements'][0]['title'] =='t'
 
     def test_receipt_template(self):
-        
         element = ReceiptElement(
             title='My Title',
             subtitle='A very good subtitle',
