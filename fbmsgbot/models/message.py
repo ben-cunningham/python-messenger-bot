@@ -1,3 +1,4 @@
+
 supported_types = [
     'text',
     'image',
@@ -23,23 +24,26 @@ class Message():
     def to_json(self):
         """Returns json representation of message"""
         data = {}
-        # TODO: check types on the payload
 
         if self.type == 'text':
+            
             data['text'] = self.payload
 
-        else:
+        elif self.type in supported_types: # Attachment msg
 
             data['attachment'] = {}
             data['attachment']['type'] = self.type
-
             if self.type == 'template':
                 template = self.payload
                 data['attachment']['payload'] = template.to_json()
-            else:
+            
+            else: # Images, audio, video etc
                 data['attachment']['payload'] = {
                     'url': self.payload
                 }
+            
+        else:
+            raise TypeError("Type provided is not in supported types.")
 
         return data
 

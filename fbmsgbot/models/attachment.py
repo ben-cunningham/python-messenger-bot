@@ -28,7 +28,7 @@ class Button(object):
         return request_payload
 
 
-class Element():
+class Element(object):
     """Elements are features of Templates"""
 
     def __init__(self, title="", subtitle="", image_url="", buttons=None):
@@ -41,8 +41,12 @@ class Element():
     def to_json(self):
 
         if self.buttons:
-            buttons = [button.to_json() for button in self.buttons]
+            if not all(isinstance(button, Button) 
+                for button in self.buttons):
+                    raise TypeError("Buttons list contained non-type Button")
 
+            buttons = [button.to_json() for button in self.buttons]
+        
         payload = {
             'title': self.title,
             'image_url': self.image_url,
