@@ -77,16 +77,12 @@ class TestTemplate(unittest.TestCase):
         """
         @TODO:
         USED FOR TESTING FAILURE AND RAISING EXCEPTIONS
-        """
         # element2 = ReceiptElement(
         #     title='My Title',
         #     subtitle='A very good subtitle',
         #     image_url='google.com'
         # )
         """
-        ---
-        """
-        
         receipt = Template(Template.receipt_type,
             recipient_name= 'name',
             order_number='1',
