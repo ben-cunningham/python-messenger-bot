@@ -80,7 +80,6 @@ def webhook():
 
             msg2 = Message('template', generic_template)
             response, error = bot.send_message(msg2, recipient)
-
         
         elif m.text == 'receipt':
             element = ReceiptElement(
@@ -136,8 +135,6 @@ def webhook():
             # Send text message
             bot.send_message(msg, recipient)
 
-
-
     return 'OK'
 
 if __name__ == "__main__":
@@ -161,5 +158,4 @@ if __name__ == "__main__":
         postback_button,
     ])
     
-
     app.run(port=8000)
