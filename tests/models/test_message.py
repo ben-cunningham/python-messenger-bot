@@ -78,11 +78,11 @@ class TestTemplate(unittest.TestCase):
         @TODO:
         USED FOR TESTING FAILURE AND RAISING EXCEPTIONS
         """
-        element2 = ReceiptElement(
-            title='My Title',
-            subtitle='A very good subtitle',
-            image_url='google.com'
-        )
+        # element2 = ReceiptElement(
+        #     title='My Title',
+        #     subtitle='A very good subtitle',
+        #     image_url='google.com'
+        # )
         """
         ---
         """
