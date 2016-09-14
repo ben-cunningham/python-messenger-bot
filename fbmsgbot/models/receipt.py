@@ -14,7 +14,7 @@ class ReceiptElement(Element):
         super(ReceiptElement, self).__init__(**self.kwargs)
         
         if price is None:
-                raise ValueError("Incorrect keyword-argument given for type ReceiptElement, needed: price") 
+            raise ValueError("Incorrect keyword-argument given for type ReceiptElement, needed: price") 
         
         self.quantity = quantity
         self.price = price
