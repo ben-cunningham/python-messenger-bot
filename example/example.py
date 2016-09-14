@@ -133,7 +133,7 @@ def webhook():
             
             # Echo back to user
             msg = Message('text', payload)
-            # Send regular message
+            # Send text message
             bot.send_message(msg, recipient)
 
     return 'OK'
