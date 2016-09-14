@@ -37,7 +37,7 @@ def webhook():
         text = m.text # Retrieve what user sent
         recipient = m.sender # Retrieve who sent it
          
-        if m.text == 'template':
+        if text == 'template':
 
             web_button = Button(
                 type='web_url',
@@ -81,7 +81,7 @@ def webhook():
             msg2 = Message('template', generic_template)
             response, error = bot.send_message(msg2, recipient)
         
-        elif m.text == 'receipt':
+        elif text == 'receipt':
             element = ReceiptElement(
                 title='My Title',
                 subtitle='A very good subtitle',
