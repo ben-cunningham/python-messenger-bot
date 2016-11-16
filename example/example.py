@@ -147,7 +147,7 @@ def webhook():
                     quick2,
                 ]
             )
-            print bot.send_message(msg, recipient)
+            bot.send_message(msg, recipient)
 
     return 'OK'
 
