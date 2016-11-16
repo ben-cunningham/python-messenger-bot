@@ -6,7 +6,7 @@ import os
 sys.path.append("..")
 
 from fbmsgbot.bot import Bot
-from fbmsgbot.models.message import Message
+from fbmsgbot.models.message import Message, QuickReply
 from fbmsgbot.models.template import Template
 from fbmsgbot.models.attachment import Button, Element, ReceiptElement 
 import json
@@ -129,6 +129,19 @@ def webhook():
             # Echo back to user
             msg = Message('text', payload)
             # Send text message
+            quick = QuickReply('text',
+                title="Click One",
+                payload="",
+                url='http://www.buffettworld.com/images/news_trump.jpg'
+            )
+            quick2 = QuickReply('location')
+            
+            msg = Message('quick', "My msg text",
+                quick_replies=[
+                    quick,
+                    quick2,
+                ]
+            )
             bot.send_message(msg, recipient)
 
     return 'OK'
