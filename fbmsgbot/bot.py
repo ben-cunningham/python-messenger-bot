@@ -52,7 +52,14 @@ class Bot():
             data)
 
         return response, error
-
+   
+    def get_profile(self, profile):
+        response, error = self.client.submit_request(
+	    '/' +str(profile) +'fields=first_name,last_name,profile_pic,locale,timezone,gender',
+	    'GET')
+	
+	return response, error
+    
     def messages_for_request(self, request):
         """
         Handle incoming requests from the webhook
